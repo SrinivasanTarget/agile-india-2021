@@ -1,0 +1,25 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app.kubernetes.io/name: mysql
+spec: 
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: hello-kubernetes
+  template: 
+    metadata: 
+      labels: 
+        app: hello-kubernetes
+    spec: 
+      containers: 
+        - image: "paulbouwer/hello-kubernetes:latest"
+          name: hello-kubernetes
+          ports: 
+            - containerPort: 8080
+      securityContext: 
+        privileged: false
+        runAsNonRoot: true
